@@ -1,0 +1,120 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="EUC-KR">
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pg43l9dp5c"></script>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet" href="./css/profile.css">
+<title>View Other User</title>
+</head>
+<body>
+	<div id="map" style="width:100%; height:100vh"/>
+	
+	<script>			
+		// create naver map object
+		var map = new naver.maps.Map('map', {
+			center: new naver.maps.LatLng(35.889845, 128.6105),
+	        zoom: 17,
+	        minZoom : 17
+		});
+		
+		// marker lat,lng
+		var latLngs = [
+			new naver.maps.LatLng(35.88689, 128.608494),
+	        new naver.maps.LatLng(35.888154, 128.6109),
+	        new naver.maps.LatLng(35.88814, 128.611388),
+	        new naver.maps.LatLng(35.8886653, 128.6120414),
+	        new naver.maps.LatLng(35.8923811, 128.6094879),
+	        new naver.maps.LatLng(35.8915206, 128.6120736),
+		];
+		
+		// home path
+		var HOME_PATH = window.HOME_PATH || ".";
+		
+		// marker array
+		var markerList = [],
+			infoWindowList = [];
+		
+		// profile information
+		var contentStr = [
+			'<div class="container">',
+		    '<div style="width:400px; height:280px;">', //  class="row"
+		        '<div >', //class="col-xs-12 col-sm-6 col-md-6"
+		            '<div >', //class="well well-sm"
+		                '<div class="row">',
+		                    '<div>', // class="col-sm-6 col-md-4"
+		                        '<img src="http://placehold.it/380x500" alt="" width="200" align="left" hspace="5" />', //class="img-rounded img-responsive"
+		                        '<h4>Bhaumik Patel</h4>',
+		                        '<small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">',
+		                        '</i></cite></small>',
+		                        '<p>',
+		                            '<i class="glyphicon glyphicon-envelope"></i>email@example.com',
+		                            '<br/>June 02, 1988</p>',
+		                        '<div class="btn-group">',
+		                            '<button type="button" class="btn btn-primary">Social</button>',
+		                        '</div>',
+		                    '</div>',
+		                '</div>',
+		            '</div>',
+		        '</div>',
+		    '</div>',
+			'</div>'
+		].join('');
+		
+		// add marker
+		for(var i=0, ii=latLngs.length;i<ii;i++){
+			//var icon={
+					
+				//	url: "./image/icon/black_pin.png",
+					//size:new naver.maps.Size(24,37),
+					//anchor:new naver.maps.Point(12,37),
+					//origin:new naver.maps.Point(i*29,0),
+			//},
+			marker = new naver.maps.Marker({
+				position:latLngs[i],
+				map:map,
+				//icon:icon,
+				//animation :naver.maps.Animation.BOUNCE,
+			});
+			
+			var infowindow = new naver.maps.InfoWindow({
+				content:contentStr
+			});
+			
+			markerList.push(marker);
+			infoWindowList.push(infowindow);
+			
+			marker = null;
+			infowindow = null;
+		}
+		
+
+		// marker click function
+		function getClickHandler(num){
+			return function(e){
+				var marker = markerList[num],
+					infoWindow = infoWindowList[num];
+				
+				if(infoWindow.getMap()){
+					infoWindow.close();
+				}
+				else{
+					infoWindow.open(map, marker);
+				}
+			}
+		}
+		
+		
+		// add click listener in marker
+		for(var i=0,ii=markerList.length;i<ii;i++){
+			naver.maps.Event.addListener(markerList[i], 'click', getClickHandler(i));
+		};
+		
+		
+	</script>
+</body>
+</html>

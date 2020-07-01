@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta charset="EUC-KR">
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pg43l9dp5c"></script>
+<title>소개팅 페이지</title>
+</head>
+<body>
+	<div id="map" style="width: 100%; height: 100vh" />
+	<jsp:include page="firebase.jsp"></jsp:include>
+		<script>
+			var Name;
+			console.log(Name);
+			// create naver map object
+			var map = new naver.maps.Map('map', {
+				center : new naver.maps.LatLng(35.889845, 128.6105),
+				zoom : 17,
+				minZoom : 17,
+			});
+
+			// add click listener
+			naver.maps.Event.addListener(map, 'click', function(e) {
+				xy_setting(e.coord.lat(), e.coord.lng(),Name);
+				alert(e.coord.lat() + ', ' + e.coord.lng());
+			})
+		</script>
+</body>
+</html>

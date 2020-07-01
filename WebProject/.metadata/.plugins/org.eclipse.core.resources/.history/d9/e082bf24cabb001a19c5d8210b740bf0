@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>chat</title>
+<style>
+.jstalktheme
+{
+	background-color: #9bbad8;
+	padding: 4px 4px 0px 4px;
+}
+
+.jstalktheme .clear
+{
+	clear: both;
+}
+
+.jstalktheme .blank
+{
+	clear: both;
+	height: 4px;
+}
+
+.jstalktheme .msg
+{
+	height: calc(100% - 72px);
+	overflow-y: scroll;
+	
+	font-size: 12px;
+}
+
+.jstalktheme .msg .time
+{
+	font-size: 10px;
+}
+
+.jstalktheme .msg .mytalk
+{
+	float: right;
+	width: 100%;
+}
+
+.jstalktheme .msg .mytalk .time
+{
+	float: right;
+	bottom: 0;
+}
+
+.jstalktheme .msg .mytalk .a
+{
+	float: right;
+	position: relative;
+	min-height: 24px;
+	max-width: calc(100% - 64px);
+	left: 2px;
+	background-color: #ffec42;
+	border-radius: 3px;
+	z-index: 2;
+	padding: 0px 4px 0px 4px;
+	word-break: break-all;
+}
+
+.jstalktheme .msg .mytalk .b
+{
+	float: right;
+	position: relative;
+	width: 8px;
+	height: 22px;
+	background: url(./chat_balloon_yellow.right.png) no-repeat;
+	z-index: 1;
+}
+
+.jstalktheme .msg .othertalk
+{
+	float: left;
+	width: 100%;
+}
+
+.jstalktheme .msg .othertalk .profile_image
+{
+	float: left;
+	width: 40px;
+	height: 40px;
+	border-radius: 14px; 
+}
+
+.jstalktheme .msg .othertalk .box
+{
+	float: left;
+	width: calc(100% - 48px);
+}
+
+.jstalktheme .msg .othertalk .box .profile_name
+{
+	font-size: 12px;
+}
+
+.jstalktheme .msg .othertalk .box .a
+{
+	float: left;
+	position: relative;
+	width: 8px;
+	height: 22px;
+	background: url(./chat_balloon_white.left.png) no-repeat;
+	z-index: 1;
+}
+
+.jstalktheme .msg .othertalk .box .b
+{
+	float: left;
+	position: relative;
+	min-height: 24px;
+	max-width: calc(100% - 64px);
+	left: -2px;
+	background-color: #ffffff;
+	border-radius: 3px;
+	z-index: 2;
+	padding: 0px 4px 0px 4px;
+	word-break: break-all;
+}
+
+.jstalktheme .msg .othertalk .box .time
+{
+	float: left;
+}
+
+.jstalktheme .sendmsg
+{
+	
+}
+
+.jstalktheme .sendmsg .textarea
+{
+	float: left;
+	width: calc(100% - 68px);
+	height: 64px;
+	border-radius: 8px 0px 0px 8px;
+	margin: 0px 0px 0px 0px;
+	padding: 2px 2px 2px 2px;
+	resize: none;
+}
+
+.jstalktheme .sendmsg .button
+{
+	float: right;
+	width: 62px;
+	height: 68px;
+	background-color: #ffec42;
+	border-radius: 0px 8px 8px 0px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	text-align: center;
+	display: table;
+	cursor: pointer;
+}
+
+.jstalktheme .sendmsg .button p
+{
+  display: table-cell;
+  vertical-align: middle;
+}
+</style>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+<script	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+<script>
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    return results[2];
+	}	
+	var userName = getParameterByName('myName');
+	var otherName = getParameterByName('other');
+
+	var firebaseConfig = {
+		apiKey : "AIzaSyBaW4hPPV0Pdz6QoXxX1USFIijUgJhqQUg",
+		authDomain : "webprogramming-df368.firebaseapp.com",
+		databaseURL : "https://webprogramming-df368.firebaseio.com",
+		projectId : "webprogramming-df368",
+		storageBucket : "webprogramming-df368.appspot.com",
+		messagingSenderId : "359102557982",
+		appId : "1:359102557982:web:07aca8db80567b3d06e30f",
+		measurementId : "G-4198BS2X0J"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+	var database = firebase.database();
+	
+	function chatting(msg){
+		var userchattingRef = database.ref().child('chat').child(userName);
+		var otherchattingRef = database.ref().child('chat').child(otherName);
+		var updates1 = {};
+		var updates2 = {};
+		var postData ={
+			user: userName,
+			//text: msg
+		};
+		updates1[msg] = postData;
+		updates2[msg] = postData;
+		userchattingRef.update(updates1);
+		otherchattingRef.update(updates2);
+	}
+</script>
+<script>
+var test_type = 1;
+/*
+ * type
+ *      0 : mytalk
+ *      1 : othertalk
+ */
+ 
+ function jstalktheme_addmsg(type, name, msg)
+ {
+    var ocontainer = document.getElementById("jstalktheme_test");
+    var ocontainer_msg = ocontainer.getElementsByClassName("msg")[0];
+    
+    var onewmsg = document.createElement("div");
+    var onewblank = document.createElement("div");
+    
+    if(type)
+    {
+       onewmsg.className="othertalk";
+       onewmsg.innerHTML = 
+       "<div class=\"profile_image\" style=\"background: url(./profile_image.png) no-repeat;\">\n"+
+       "</div>\n"+
+       "<div class=\"box\">\n"+
+       "<div class=\"profile_name\">\n"+
+       name+"\n"+
+       "</div>\n"+
+       "<div class=\"a\">\n"+
+       "</div>\n"+
+       "<div class=\"b\">\n"+
+       msg+"\n"+
+       "</div>\n" +
+       "</div>\n";
+    }else{
+       onewmsg.className="mytalk";
+       onewmsg.innerHTML = 
+       "<div class=\"b\">\n"+
+       "</div>\n"+
+       "<div class=\"a\">\n"+
+       msg+"\n"+
+       "</div>\n"+
+       "";
+    }
+    
+    onewmsg.innerHTML +=
+     "<div class=\"clear\">\n"+
+     "</div>";
+    
+    onewblank.className="blank";
+    
+    ocontainer_msg.appendChild(onewmsg);
+    ocontainer_msg.appendChild(onewblank);
+    
+    ocontainer_msg.scrollTop = ocontainer_msg.scrollHeight;
+ }
+
+
+ function jstalktheme_testfunc()
+ {
+    var otxtmsg = document.getElementById("jstalktheme_testmsg");
+    var name;
+    
+    var commentsRef = firebase.database().ref('chat/' + userName);
+    commentsRef.on('child_added', function(data) {
+      //addCommentElement(postElement, data.key, data.val().text, data.val().author);
+      //console.log(data.key);
+      data.forEach(function(childSnapshot){
+    	  var childData = childSnapshot.val();
+    	  if (childData == userName)
+    	       test_type = 0;
+    	    else if (childData == otherName)
+    	       test_type = 1;
+    	    else
+    	       test_type = 2;
+    	  jstalktheme_addmsg(test_type, childData, data.key);
+    	  //console.log(childData);
+      });
+    });
+    
+    
+ }
+</script>
+</head>
+<body>
+<div class="jstalktheme" id="jstalktheme_test" style="width: 320px; height: 480px;">
+<div class="msg">
+</div>
+
+<div class="sendmsg">
+    <textarea class="textarea" id="jstalktheme_testmsg" onkeypress="if(event.keyCode==13){ chatting(); this.value=''; return false; }else if(event.keyCode==10){ this.value+='\n'; }"></textarea>
+    <div class="button" onclick="jstalktheme_testfunc(); chatting(jstalktheme_testmsg.value);">
+ 	   <p>전송</p>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+</div>
+</body>
+</html>

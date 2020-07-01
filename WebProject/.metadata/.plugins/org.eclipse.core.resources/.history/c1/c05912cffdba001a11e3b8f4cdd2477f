@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="./css/login.css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<title>회원가입</title>
+</head>
+<body>
+	<jsp:include page="firebase.jsp"></jsp:include>
+	<section class="login-block signup">
+		<div class="col-md-4 container">
+			<div class="login-sec">
+				<h2 class="text-center">SIGN UP</h2>
+				<form class="login-form">
+					<div class="form-group">
+						<label class="text-uppercase">e-mail</label> <input type="text"
+							class="form-control" id="email" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">비밀번호</label> <input type="password"
+							class="form-control" id="pwd" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">비밀번호 확인</label> <input
+							type="password" class="form-control" id="pwd_check"
+							placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">이름</label> <input type="text"
+							class="form-control" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">생년월일</label> <input type="text"
+							class="form-control" placeholder="yyyymmdd" maxlength=8>
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">성별</label> <select
+							class="form-control">
+							<option value="0">----</option>
+							<option value="1">남자</option>
+							<option value="2">여자</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">학과</label> <input type="text"
+							class="form-control" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">자기소개</label>
+						<textarea rows="2" class="form-control"></textarea>
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">사진</label> <input type="text"
+							class="form-control" placeholder="">
+					</div>
+
+					<button type="submit" class="btn btn-login margin "
+						onclick="signup(email.value, pwd.value, pwd_check.value)">SIGN
+						UP</button>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

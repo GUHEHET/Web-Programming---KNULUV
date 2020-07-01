@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>·Î±×ÀÎ</title>
+</head>
+<body>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBaW4hPPV0Pdz6QoXxX1USFIijUgJhqQUg",
+    authDomain: "webprogramming-df368.firebaseapp.com",
+    databaseURL: "https://webprogramming-df368.firebaseio.com",
+    projectId: "webprogramming-df368",
+    storageBucket: "webprogramming-df368.appspot.com",
+    messagingSenderId: "359102557982",
+    appId: "1:359102557982:web:07aca8db80567b3d06e30f",
+    measurementId: "G-4198BS2X0J"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+</body>
+</html>

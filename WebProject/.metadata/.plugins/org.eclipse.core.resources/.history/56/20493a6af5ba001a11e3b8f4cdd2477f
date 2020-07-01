@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>login</title>
+</head>
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBaW4hPPV0Pdz6QoXxX1USFIijUgJhqQUg",
+    authDomain: "webprogramming-df368.firebaseapp.com",
+    databaseURL: "https://webprogramming-df368.firebaseio.com",
+    projectId: "webprogramming-df368",
+    storageBucket: "webprogramming-df368.appspot.com",
+    messagingSenderId: "359102557982",
+    appId: "1:359102557982:web:07aca8db80567b3d06e30f",
+    measurementId: "G-4198BS2X0J"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  
+  var storage = firebase.storage();
+  var pathReference = storage.ref('face_img/2277_1920_3421.png');
+</script>
+</body>
+</html>

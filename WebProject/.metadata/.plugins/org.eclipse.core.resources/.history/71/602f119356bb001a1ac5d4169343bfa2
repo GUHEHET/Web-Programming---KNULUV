@@ -1,0 +1,110 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="./css/login.css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<title>회원가입</title>
+
+
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+<script>
+	var firebaseConfig = {
+		apiKey : "AIzaSyBaW4hPPV0Pdz6QoXxX1USFIijUgJhqQUg",
+		authDomain : "webprogramming-df368.firebaseapp.com",
+		databaseURL : "https://webprogramming-df368.firebaseio.com",
+		projectId : "webprogramming-df368",
+		storageBucket : "webprogramming-df368.appspot.com",
+		messagingSenderId : "359102557982",
+		appId : "1:359102557982:web:07aca8db80567b3d06e30f",
+		measurementId : "G-4198BS2X0J"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+	var storage = firebase.storage().ref();
+	function file_upload(email){
+		var uploadRef = storage.child('img/'+email.split('@')[0]+'.png');
+	}
+</script>
+
+</head>
+<body>
+	<jsp:include page="firebase.jsp"></jsp:include>
+	<section class="login-block signup">
+		<div class="col-md-4 container">
+			<div class="login-sec">
+				<h2 class="text-center">SIGN UP</h2>
+				<form class="login-form">
+					<div class="form-group">
+						<label class="text-uppercase">e-mail</label> <input type="text"
+							class="form-control" id="email" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">비밀번호</label> <input type="password"
+							class="form-control" id="pwd" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">비밀번호 확인</label> <input
+							type="password" class="form-control" id="pwd_check"
+							placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">이름</label> <input type="text"
+							class="form-control" id="Nickname" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">생년월일</label> <input type="text"
+							class="form-control" id="age" placeholder="yyyymmdd" maxlength=8>
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">성별</label> <select
+							class="form-control" id="sex">
+							<option value="0">----</option>
+							<option value="1">남자</option>
+							<option value="2">여자</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">학과</label> <input type="text"
+							class="form-control" id="department" placeholder="">
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">자기소개</label>
+						<textarea rows="2" class="form-control" id="text" ></textarea>
+					</div>
+
+					<div class="form-group">
+						<label class="text-uppercase">사진</label> <input type="file"
+							class="form-control" value="파일선택" name="file" placeholder="">
+					</div>
+
+					<button type="button" class="btn btn-login margin "
+						onclick="signup(email.value, pwd.value, pwd_check.value, Nickname.value, age.value, sex.value, department.value, text.value); file_upload(email.value);">SIGN
+						UP</button>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
